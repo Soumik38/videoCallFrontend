@@ -14,12 +14,12 @@ const SignUp = () => {
   async function submit(e){
     e.preventDefault()
     try{
-      await axios.post('http://localhost:4000/signup',{email,pass,name}).then(res=>{
+      await axios.post('https://temp-back.onrender.com/signup',{email,pass,name}).then(res=>{
         console.log(res.data)
         if(res.data==='exists'){
           alert('User already exists.')   
         }else if(res.data==='notexists'){
-          nav('/home',{state:{id:email}})
+          nav('/home',{state:{myEmail:email}})
         }
       })
     }catch(e){

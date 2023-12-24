@@ -9,10 +9,10 @@ const SignIn = () => {
     async function submit(e){
         e.preventDefault()
         try{
-          await axios.post('http://localhost:4000/signin',{email,pass}).then(res=>{
+          await axios.post('https://temp-back.onrender.com/signin',{email,pass}).then(res=>{
             console.log(res)
             if(res.data==='authorize'){
-              nav('/home',{state:{id:email}})
+              nav('/home',{state:{myEmail:email}})
             }else if(res.data==='notexists'){
               alert('User does not exist.')
             }else if(res.data==='wrongpass'){
