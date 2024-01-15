@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect, useMemo , useContext } from 'react';
+import React, { createContext, useMemo , useContext } from 'react';
 import { io } from 'socket.io-client';
 
 const SocketContext = createContext(null)
@@ -9,7 +9,7 @@ export const useSocket=()=>{
 }
 
 export const SocketProvider=(props)=>{
-    const socket=useMemo(()=> io('https://temp-back.onrender.com'),[])
+    const socket=useMemo(()=> io('http://localhost:4000'),[])
     return(
         <SocketContext.Provider value={socket}>
             {props.children}

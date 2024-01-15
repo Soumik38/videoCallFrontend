@@ -1,20 +1,37 @@
-import React,{useContext,useEffect,useCallback,useState} from 'react'
-import {useSocket} from '../socketContext'
+import React,{useEffect,useCallback,useState} from 'react'
+import {useSocket} from '../../util/socketContext'
 import ReactPlayer from 'react-player'
-import peer from '../peer'
+import peer from '../../util/peer'
 
 const Room = () => {
     const [friendId,setFriendId]=useState(null)
     const [myStream,setMyStream]=useState(null)
     const [friendStream,setFriendStream]=useState(null)
     const [accepted,setAccepted]=useState(false)
-
+    const [myName,setMyName]=useState('')
+    const [friendName,setFriendName]=useState('')
+    const [friendEmail,setFriendEmail]=useState('')
     const socket=useSocket()
 
+    const getFriendName=useCallback(async()=>{
+      fetch(`http://localhost:4000/user/${friendEmail}`)
+          .then(response => response.json())
+          .then(data => {
+          if (data.error) {
+            console.error(data.error);
+          } else {
+            setFriendName(data.name);
+          }
+          })
+          .catch(error => console.error('Error fetching user by email:', error));
+    },[friendEmail,setFriendName])
+    
     const userJoined=useCallback((data)=>{   //alerts everyone if a user has entered
         console.log(`${data.email} has joined with id ${data.id}`)
         setFriendId(data.id)
-    },[setFriendId])
+        setFriendEmail(data.email)
+        getFriendName()
+    },[setFriendId,setFriendEmail])
 
     const callUser=useCallback(async()=>{  
       const offer=await peer.getOffer()
@@ -25,6 +42,11 @@ const Room = () => {
         const stream= await navigator.mediaDevices.getUserMedia({audio:true,video:true})
         setMyStream(stream)
     },[setMyStream])
+
+
+    useEffect(()=>{
+      setMyName(JSON.parse(localStorage.getItem('myName')))
+    },[setMyName])
 
     useEffect(()=>{
       myVideo()
@@ -101,14 +123,16 @@ const Room = () => {
       <div className='bg-yellow h-screen flex flex-col justify-evenly'>
         <div className='flex justify-evenly items-center'>
           <div className='bg-red p-7 shadow-lg rounded-md h-60'>
+            {myName}
             <ReactPlayer playing muted width='200px' height='200px' url={myStream}/>
           </div>
-          {friendStream && <div className='bg-red p-7 shadow-lg rounded-md h-60'>
+          {friendStream && <div className='bg-blue p-7 shadow-lg rounded-md h-60'>
+            
             <ReactPlayer playing muted width='200px' height='200px' url={friendStream}/>
           </div>}
         </div>
         <div className='flex justify-center'>
-          {friendId && <button className='border-2 border-indigo-700 bg-blue w-12 text-white mt-3 py-1 rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold'
+          {friendId && <button className='border-2 border-indigo-700 w-12 text-white mt-3 py-1 rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold'
             onClick={callUser}>CALL</button>}
         </div>
       </div>)
