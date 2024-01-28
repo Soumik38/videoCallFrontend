@@ -17,6 +17,7 @@ const Room = () => {
       fetch(`http://localhost:4000/user/${friendEmail}`)
           .then(response => response.json())
           .then(data => {
+            console.log(data)
           if (data.error) {
             console.error(data.error);
           } else {
@@ -123,17 +124,17 @@ const Room = () => {
       <div className='bg-yellow h-screen flex flex-col justify-evenly'>
         <div className='flex justify-evenly items-center'>
           <div className='bg-red p-7 shadow-lg rounded-md h-60'>
-            {myName}
-            <ReactPlayer playing muted width='200px' height='200px' url={myStream}/>
+            {/* {myName} */}
+            <ReactPlayer playing width='200px' height='200px' url={myStream}/>
           </div>
           {friendStream && <div className='bg-blue p-7 shadow-lg rounded-md h-60'>
-            
-            <ReactPlayer playing muted width='200px' height='200px' url={friendStream}/>
+            {/* {friendName} */}
+            <ReactPlayer playing width='200px' height='200px' url={friendStream}/>
           </div>}
         </div>
         <div className='flex justify-center'>
           {friendId && <button className='border-2 border-indigo-700 w-12 text-white mt-3 py-1 rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold'
-            onClick={callUser}>CALL</button>}
+            onClick={callUser}>Start Call</button>}
         </div>
       </div>)
 }

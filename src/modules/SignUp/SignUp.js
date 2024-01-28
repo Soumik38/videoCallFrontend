@@ -7,12 +7,26 @@ const SignUp = () => {
   const [email,setEmail]=useState('')
   const [pass,setPass]=useState('')
   const [name,setName]=useState('')
+  const [confPass,setConfPass]=useState('')
   
-  // const [confpass,setConfpass]=useState('')
   async function submit(e){
     e.preventDefault()
     try{
-      await axios.post('http://localhost:4000/signup',{email,pass,name}).then(res=>{
+      // if(confPass!=pass){
+      //   alert('Passwords do not match.')
+      // }else{
+      //   await axios.post('http://localhost:4000/signup',{email,pass,name}).then(res=>{
+      //     console.log(res.data)
+      //     if(res.data==='exists'){
+      //       alert('User already exists.')   
+      //     }else if(res.data==='notexists'){
+      //       localStorage.setItem('jwt', JSON.stringify('loggedin'))
+      //       localStorage.setItem('myEmail', JSON.stringify(email))
+      //       nav('/home')
+      //     }
+      //   })
+      // }
+      await axios.post(`http://localhost:4000/signup`,{email,pass,name}).then(res=>{
         console.log(res.data)
         if(res.data==='exists'){
           alert('User already exists.')   
@@ -20,7 +34,7 @@ const SignUp = () => {
           localStorage.setItem('jwt', JSON.stringify('loggedin'))
           localStorage.setItem('myEmail', JSON.stringify(email))
           nav('/home')
-          // nav('/home',{state:{myEmail:email}})
+        // nav('/home',{state:{myEmail:email}})
         }
       })
     }catch(e){
@@ -39,6 +53,8 @@ const SignUp = () => {
           <input type='email' name='email' id='email' placeholder='Enter email' onChange={(e)=>{setEmail(e.target.value)}}/>
           <label for="password">Password</label>
           <input name='password' type='password' id='password' placeholder='Set password' onChange={(e)=>{setPass(e.target.value)}}/>
+          {/* <label for="confirmPassword">Confirm Password</label>
+          <input name='confirmPassword' type='password' id='password' placeholder='Confirm password' onChange={(e)=>{setPass(e.target.value)}}/> */}
           <small>
                     <ul>
                         <li>Use 8 or more characters</li>
@@ -47,7 +63,7 @@ const SignUp = () => {
                         <li>Use a symbol (e.g., !@#)</li>
                     </ul>
           </small>
-          {/* <input label='ConfirmPassword' name='confirmPassword' type='password' placeholder='Confirm password'/> */}
+          
           <button type='submit' onClick={submit} className='signup-button'>Sign Up</button>
         </form>
         <small>By creating an account, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</small>

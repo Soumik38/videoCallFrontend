@@ -12,10 +12,11 @@ const SignIn = () => {
     async function submit(e){
         e.preventDefault()
         try{
-          await axios.post('http://localhost:4000/signin',{email,pass}).then(res=>{
+          
+          await axios.post(`http://localhost:4000/signin`,{email,pass}).then(res=>{
             console.log(res)
             if(res.data==='authorize'){
-              localStorage.setItem('jwt', JSON.stringify('loggedin'))
+              localStorage.setItem('token',true)
               localStorage.setItem('myEmail', JSON.stringify(email))
               nav('/home')
               // nav('/home',{state:{myEmail:email}})

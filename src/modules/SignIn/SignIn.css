@@ -71,11 +71,10 @@ input {
 
 .login-button {
     border-radius: 32px;
-    background: #5840BA;
-    color: #fff;
+    background: #9176ff;
+    color: #3639fe;
     padding: 10px 20px;
     border: none;
-   
     cursor: pointer;
 }
 

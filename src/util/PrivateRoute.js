@@ -1,11 +1,10 @@
-import React from 'react'
-import {Navigate} from 'react-router-dom'
+import React, { useState } from 'react'
+import {Outlet,Navigate} from 'react-router-dom'
 import { useLocalState } from './useLocalStorage';
 
-const PrivateRoute = ({component}) => {
-    const [jwt,setJwt] = useLocalState('loggedin','jwt')
-
-  return jwt ? component : <Navigate to='/signin'/>
+const PrivateRoute = () => {
+    const auth=(JSON.parse(localStorage.getItem('token')))
+    return auth ? <Outlet/> : <Navigate to='/signin'/>
 }
 
 export default PrivateRoute
