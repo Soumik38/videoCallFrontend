@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Create an Account</title>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <h1>Create an Account</h1>
+            <form action="#" method="post">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+                <small>We strongly recommend using a phone number. This will help verify your account and keep it safe.</small>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <small>
+                    <ul>
+                        <li>Use 8 or more characters</li>
+                        <li>Use upper and lower case letters (e.g., aA)</li>
+                        <li>Use a number (e.g., 1234)</li>
+                        <li>Use a symbol (e.g., !@#)</li>
+                    </ul>
+                </small>
+
+                <button type="submit" class="signup-button">Sign Up</button>
+                <small>By creating an account, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</small>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
